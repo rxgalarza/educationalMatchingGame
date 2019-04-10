@@ -66,7 +66,7 @@ class MainMenuScreen: SKScene {
             if name == "playButton"
             {
                 let gameScene = GameScene(size: CGSize(width: 750, height: 1624))
-                
+                view?.presentScene(gameScene)
             }else if name == "learnButton"{
                 print("learn Button Touched")
             }
