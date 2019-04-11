@@ -11,15 +11,10 @@ import GameplayKit
 
 class GameScene: SKScene {
     
+    // Array of animal sprites
+    var animals = [SKSpriteNode]()
     
-    override func didMove(to view: SKView) {
-        print("SCENE")
-        self.backgroundColor = .green
-        self.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        
-        // Array of animal sprites
-        var animals = [SKSpriteNode]()
-        
+    fileprivate func setupAnimals() {
         // code to create a animal sprite
         let hippo: SKSpriteNode = SKSpriteNode(imageNamed: "hippo")
         hippo.position = CGPoint(x: -100, y: 0)
@@ -42,29 +37,29 @@ class GameScene: SKScene {
         animals.append(chicken)
         
         
-        
         // addChild(panda)
         let elephant: SKSpriteNode = SKSpriteNode(imageNamed: "elephant")
         elephant.position = CGPoint(x: -100, y: -200)
         elephant.name = "elephant"
-        addChild(elephant)
+        animals.append(elephant)
         
         let pig: SKSpriteNode = SKSpriteNode(imageNamed: "pig")
         pig.position    = CGPoint(x: 100, y: -200)
         pig.name = "pig"
-        addChild(pig)
+        animals.append(pig)
         
         let dog: SKSpriteNode = SKSpriteNode(imageNamed: "dog")
         dog.position    = CGPoint(x: -100, y: 100)
         dog.name = "dog"
-        addChild(dog)
+        animals.append(dog)
         
         let goat: SKSpriteNode = SKSpriteNode(imageNamed: "goat")
         goat.position    = CGPoint(x: 100, y: 100)
         goat.name = "goat"
-        addChild(goat)
-        
-        
+        animals.append(goat)
+    }
+    
+    fileprivate func setupLabels() {
         let animalToSelectLabel:SKLabelNode = SKLabelNode()
         animalToSelectLabel.text = "Find the panda"
         animalToSelectLabel.fontName = "AvenirNext-Heavy"
@@ -82,8 +77,50 @@ class GameScene: SKScene {
         scoreLabel.fontSize = 40
         scoreLabel.position = CGPoint(x: 250, y: 600)
         addChild(scoreLabel)
+    }
+    
+    override func didMove(to view: SKView) {
+        print("SCENE")
+        self.backgroundColor = .green
+        self.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         
+        setupAnimals()
+        setupLabels()
+        addAnimalsToScreen()
         
+    }
+    
+    func addAnimalsToScreen(){
+        
+        let animal1 = randomItem()
+        animal1.position = CGPoint(x: 100, y: 0)
+        addChild(animal1)
+        
+        let animal2 = randomItem()
+        animal2.position = CGPoint(x: -100, y: 0)
+        addChild(animal2)
+        
+        let animal3 = randomItem()
+        animal3.position = CGPoint(x: -100, y: -200)
+        addChild(animal3)
+        
+        let animal4 = randomItem()
+        animal4.position = CGPoint(x: 100, y: -200)
+        addChild(animal4)
+    }
+    
+    var indexes = [Int]();
+    
+    func randomItem() -> SKSpriteNode
+    {
+        if indexes.count == 0
+        {
+            print("Filling indexes array")
+            indexes = Array(0..<animals.count)
+        }
+        let randomIndex = Int(arc4random_uniform(UInt32(indexes.count)))
+        let anIndex = indexes.remove(at:randomIndex)
+        return animals[anIndex];
     }
     
     
