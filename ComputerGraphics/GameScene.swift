@@ -20,7 +20,7 @@ class GameScene: SKScene {
         // Array of animal sprites
         var animals = [SKSpriteNode]()
         
-        // code to create a animal sprite
+    
         // code to create a animal sprite
         let hippo: SKSpriteNode = SKSpriteNode(imageNamed: "hippo")
         hippo.position = CGPoint(x: -100, y: 0)
@@ -44,7 +44,6 @@ class GameScene: SKScene {
         
         
     
-
        // addChild(panda)
         
         let elephant: SKSpriteNode = SKSpriteNode(imageNamed: "elephant")
