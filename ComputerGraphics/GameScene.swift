@@ -21,15 +21,29 @@ class GameScene: SKScene {
         var animals = [SKSpriteNode]()
         
         // code to create a animal sprite
-        var hippo: SKSpriteNode = SKSpriteNode(imageNamed: "hippo")
+        // code to create a animal sprite
+        let hippo: SKSpriteNode = SKSpriteNode(imageNamed: "hippo")
         hippo.position = CGPoint(x: -100, y: 0)
         hippo.name = "hippo"
         animals.append(hippo)
         
-        
         let panda: SKSpriteNode = SKSpriteNode(imageNamed: "panda")
         panda.position = CGPoint(x: 100, y: 0)
         panda.name = "panda"
+        animals.append(panda)
+        
+        let horse: SKSpriteNode = SKSpriteNode(imageNamed: "horse")
+        horse.position = CGPoint(x: -100, y: 200)
+        horse.name = "horse"
+        animals.append(horse)
+        
+        let chicken: SKSpriteNode = SKSpriteNode(imageNamed: "chicken")
+        chicken.position = CGPoint(x: -100, y: 200)
+        chicken.name = "chicken"
+        animals.append(chicken)
+        
+        
+    
 
        // addChild(panda)
         
