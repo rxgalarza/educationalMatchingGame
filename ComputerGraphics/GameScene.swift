@@ -20,7 +20,6 @@ class GameScene: SKScene {
         // Array of animal sprites
         var animals = [SKSpriteNode]()
         
-    
         // code to create a animal sprite
         let hippo: SKSpriteNode = SKSpriteNode(imageNamed: "hippo")
         hippo.position = CGPoint(x: -100, y: 0)
@@ -43,9 +42,8 @@ class GameScene: SKScene {
         animals.append(chicken)
         
         
-    
-       // addChild(panda)
         
+        // addChild(panda)
         let elephant: SKSpriteNode = SKSpriteNode(imageNamed: "elephant")
         elephant.position = CGPoint(x: -100, y: -200)
         elephant.name = "elephant"
@@ -55,6 +53,16 @@ class GameScene: SKScene {
         pig.position    = CGPoint(x: 100, y: -200)
         pig.name = "pig"
         addChild(pig)
+        
+        let dog: SKSpriteNode = SKSpriteNode(imageNamed: "dog")
+        dog.position    = CGPoint(x: -100, y: 100)
+        dog.name = "dog"
+        addChild(dog)
+        
+        let goat: SKSpriteNode = SKSpriteNode(imageNamed: "goat")
+        goat.position    = CGPoint(x: 100, y: 100)
+        goat.name = "goat"
+        addChild(goat)
         
         
         let animalToSelectLabel:SKLabelNode = SKLabelNode()
@@ -87,19 +95,24 @@ class GameScene: SKScene {
         
         if let name = touchedNode.name
         {
-            if name == "hippo"
+            if name == "goat"
             {
-               print("hippo")
-                
+                print("goat")
             }else if name == "pig"{
-                 print("pig")
+                print("pig")
             }else if name == "elephant" {
                 print("elephant")
             }else if name == "panda" {
                 print("panda")
+            }else if name == "dog" {
+                print("dog")
+            }else if name == "panda"{
+                print("panda")
+            }else if (name == "chicken"){
+                print("chicken")
             }
+            
         }
-        
     }
     
     
