@@ -16,6 +16,9 @@ class GameScene: SKScene {
     var animalsOnScreen = [SKSpriteNode]()
     var animalToSelectLabel:SKLabelNode = SKLabelNode()
     var animalToSelectName:String = ""
+    var score:Int = 0
+    var scoreLabel: SKLabelNode = SKLabelNode()
+
     
     fileprivate func setupAnimals() {
         // code to create a animal sprite
@@ -119,7 +122,6 @@ class GameScene: SKScene {
         
         //AvenirNext-Heavy
         
-        let scoreLabel: SKLabelNode = SKLabelNode()
         scoreLabel.text = "Score:"
         scoreLabel.fontColor = .black
         scoreLabel.fontName = "AvenirNext-Heavy"
@@ -202,6 +204,8 @@ class GameScene: SKScene {
         print(name)
         if name == animalToSelectName{
             print(true)
+            score += 10
+            scoreLabel.text = "Score: \(score)"
         }else {
             print(false)
         }
