@@ -13,6 +13,9 @@ class GameScene: SKScene {
     
     // Array of animal sprites
     var animals = [SKSpriteNode]()
+    var animalsOnScreen = [SKSpriteNode]()
+    var animalToSelectLabel:SKLabelNode = SKLabelNode()
+    var animalToSelectName:String = ""
     
     fileprivate func setupAnimals() {
         // code to create a animal sprite
@@ -60,8 +63,8 @@ class GameScene: SKScene {
     }
     
     fileprivate func setupLabels() {
-        let animalToSelectLabel:SKLabelNode = SKLabelNode()
-        animalToSelectLabel.text = "Find the panda"
+        
+       
         animalToSelectLabel.fontName = "AvenirNext-Heavy"
         animalToSelectLabel.fontColor = .black
         animalToSelectLabel.fontSize = 65
@@ -92,21 +95,33 @@ class GameScene: SKScene {
     
     func addAnimalsToScreen(){
         
+        let animal0 = randomItem()
+        animal0.position = CGPoint(x: 100, y: 0)
+        animalsOnScreen.append(animal0)
+        addChild(animal0)
+        
         let animal1 = randomItem()
-        animal1.position = CGPoint(x: 100, y: 0)
+        animal1.position = CGPoint(x: -100, y: 0)
+        animalsOnScreen.append(animal1)
         addChild(animal1)
         
         let animal2 = randomItem()
-        animal2.position = CGPoint(x: -100, y: 0)
+        animal2.position = CGPoint(x: -100, y: -200)
+        animalsOnScreen.append(animal2)
         addChild(animal2)
         
         let animal3 = randomItem()
-        animal3.position = CGPoint(x: -100, y: -200)
+        animal3.position = CGPoint(x: 100, y: -200)
+        animalsOnScreen.append(animal3)
         addChild(animal3)
         
-        let animal4 = randomItem()
-        animal4.position = CGPoint(x: 100, y: -200)
-        addChild(animal4)
+        let randomInt = Int.random(in: 0..<4)
+        print(randomInt)
+       
+        animalToSelectName = animalsOnScreen[randomInt].name!
+        
+        animalToSelectLabel.text = "Find the \(animalToSelectName)"
+        
     }
     
     var indexes = [Int]();
@@ -132,25 +147,19 @@ class GameScene: SKScene {
         
         if let name = touchedNode.name
         {
-            if name == "goat"
-            {
-                print("goat")
-            }else if name == "pig"{
-                print("pig")
-            }else if name == "elephant" {
-                print("elephant")
-            }else if name == "panda" {
-                print("panda")
-            }else if name == "dog" {
-                print("dog")
-            }else if name == "panda"{
-                print("panda")
-            }else if (name == "chicken"){
-                print("chicken")
-            }
-            
+            checkUserSelection(name: name)
         }
     }
     
+    
+    func checkUserSelection(name: String){
+        print(name)
+        if name == animalToSelectName{
+            print(true)
+        }else {
+            print(false)
+        }
+        
+    }
     
 }
