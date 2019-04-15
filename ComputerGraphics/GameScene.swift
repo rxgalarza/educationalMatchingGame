@@ -12,14 +12,17 @@ import GameplayKit
 class GameScene: SKScene {
     
     // Array of animal sprites
-    var animals = [SKSpriteNode]()
-    var animalsOnScreen = [SKSpriteNode]()
-    var animalToSelectLabel:SKLabelNode = SKLabelNode()
-    var animalToSelectName:String = ""
-    var score:Int = 0
-    var currentLevel: Int = 1
-    var scoreLabel: SKLabelNode = SKLabelNode()
+    var animals                          = [SKSpriteNode]()
+    var animalsOnScreen                  = [SKSpriteNode]()
+    var animalToSelectLabel:SKLabelNode  = SKLabelNode()
+    var animalToSelectName:String        = ""
+    var score:Int                        = 0
+    var currentLevel: Int                = 1
+    var scoreLabel: SKLabelNode          = SKLabelNode()
 
+    var popIn:SKAction                   = SKAction()
+    var popDown:SKAction                 = SKAction()
+    var shakeAction:SKAction             = SKAction()
     
     fileprivate func setupAnimals() {
         // code to create a animal sprite
@@ -114,14 +117,11 @@ class GameScene: SKScene {
     
     fileprivate func setupLabels() {
         
-       
         animalToSelectLabel.fontName = "AvenirNext-Heavy"
         animalToSelectLabel.fontColor = .black
         animalToSelectLabel.fontSize = 65
         animalToSelectLabel.position = CGPoint(x: 0, y: 450)
         addChild(animalToSelectLabel)
-        
-        //AvenirNext-Heavy
         
         scoreLabel.text = "Score:"
         scoreLabel.fontColor = .black
@@ -136,14 +136,22 @@ class GameScene: SKScene {
         self.backgroundColor = .green
         self.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         
+        setupActions()
         setupAnimals()
         setupLabels()
-        
-        
         addAnimalsToScreen()
-        
     }
     
+    func setupActions(){
+        
+        popIn   = SKAction.scale(to: 1.5, duration: 0.23)
+        popDown = SKAction.scale(to: 1.0, duration: 0.25)
+        
+        let moveLeft     = SKAction.moveBy(x: -15, y: 0, duration: 0.05)
+        let moveRight    = SKAction.moveBy(x: 15, y: 0, duration: 0.05)
+        
+        shakeAction      = SKAction.repeat(SKAction.sequence([moveLeft,moveRight]), count: 5)
+    }
     func removeAnimalsFromScreen(){
         self.removeChildren(in: animalsOnScreen)
     }
@@ -154,22 +162,31 @@ class GameScene: SKScene {
         let animal0 = randomItem()
         animal0.position = CGPoint(x: 100, y: 0)
         animalsOnScreen.append(animal0)
+        animal0.setScale(0.25)
         addChild(animal0)
+        animal0.run(SKAction.sequence([popIn,popDown]))
         
         let animal1 = randomItem()
         animal1.position = CGPoint(x: -100, y: 0)
+        animal1.setScale(0.25)
         animalsOnScreen.append(animal1)
         addChild(animal1)
+        animal1.run(SKAction.sequence([popIn,popDown]))
         
         let animal2 = randomItem()
         animal2.position = CGPoint(x: -100, y: -200)
+        animal2.setScale(0.25)
         animalsOnScreen.append(animal2)
         addChild(animal2)
+        animal2.run(SKAction.sequence([popIn,popDown]))
         
         let animal3 = randomItem()
         animal3.position = CGPoint(x: 100, y: -200)
+        animal3.setScale(0.25)
         animalsOnScreen.append(animal3)
         addChild(animal3)
+        animal3.run(SKAction.sequence([popIn,popDown]))
+        
         
         let randomInt = Int.random(in: 0..<4)
         print(randomInt)
@@ -216,11 +233,12 @@ class GameScene: SKScene {
             scoreLabel.text = "Score: \(score)"
             let wait = SKAction.wait(forDuration: 0.5)
             let displayCorrectLabel = SKAction.run {
+                self.animalToSelectLabel.run(SKAction.sequence([self.popIn, self.popDown]))
                 self.animalToSelectLabel.text = "Correct!"
             }
             let removeAnimalsAction = SKAction.run{ self.removeAnimalsFromScreen()}
             let addAnimalsAction    = SKAction.run{
-                                                if self.currentLevel <= 10 {
+                                                if self.currentLevel < 10 {
                                                         self.addAnimalsToScreen()
                                                         self.currentLevel += 1
                                                 }
@@ -232,13 +250,16 @@ class GameScene: SKScene {
             
         }else {
             print(false)
-            animalToSelectLabel.text = "Try Again"
+            let displayTryAgainLabel = SKAction.run {
+                 self.animalToSelectLabel.run(self.shakeAction)
+                 self.animalToSelectLabel.text = "Try Again"
+            }
+           
             let wait = SKAction.wait(forDuration: 0.5)
             let updateAnimalToSelectLabel = SKAction.run {
                 self.animalToSelectLabel.text = "Find the \(self.animalToSelectName)"
             }
-            run(SKAction.sequence([wait, updateAnimalToSelectLabel]))
-            
+            run(SKAction.sequence([wait,displayTryAgainLabel,wait,updateAnimalToSelectLabel]))
         }
         
     }
