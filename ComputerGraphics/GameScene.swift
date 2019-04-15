@@ -17,6 +17,7 @@ class GameScene: SKScene {
     var animalToSelectLabel:SKLabelNode = SKLabelNode()
     var animalToSelectName:String = ""
     var score:Int = 0
+    var currentLevel: Int = 1
     var scoreLabel: SKLabelNode = SKLabelNode()
 
     
@@ -137,12 +138,19 @@ class GameScene: SKScene {
         
         setupAnimals()
         setupLabels()
+        
+        
         addAnimalsToScreen()
         
     }
     
+    func removeAnimalsFromScreen(){
+        self.removeChildren(in: animalsOnScreen)
+    }
+
     func addAnimalsToScreen(){
         
+        animalsOnScreen.removeAll()
         let animal0 = randomItem()
         animal0.position = CGPoint(x: 100, y: 0)
         animalsOnScreen.append(animal0)
@@ -187,8 +195,8 @@ class GameScene: SKScene {
     }
     
     
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        
         let touch:UITouch = touches.first!
         let positionInScene = touch.location(in: self)
         let touchedNode = self.atPoint(positionInScene)
@@ -206,8 +214,31 @@ class GameScene: SKScene {
             print(true)
             score += 10
             scoreLabel.text = "Score: \(score)"
+            let wait = SKAction.wait(forDuration: 0.5)
+            let displayCorrectLabel = SKAction.run {
+                self.animalToSelectLabel.text = "Correct!"
+            }
+            let removeAnimalsAction = SKAction.run{ self.removeAnimalsFromScreen()}
+            let addAnimalsAction    = SKAction.run{
+                                                if self.currentLevel <= 10 {
+                                                        self.addAnimalsToScreen()
+                                                        self.currentLevel += 1
+                                                }
+                                                }
+            
+            run(SKAction.sequence([wait, displayCorrectLabel, wait, removeAnimalsAction,addAnimalsAction]))
+           
+            
+            
         }else {
             print(false)
+            animalToSelectLabel.text = "Try Again"
+            let wait = SKAction.wait(forDuration: 0.5)
+            let updateAnimalToSelectLabel = SKAction.run {
+                self.animalToSelectLabel.text = "Find the \(self.animalToSelectName)"
+            }
+            run(SKAction.sequence([wait, updateAnimalToSelectLabel]))
+            
         }
         
     }
