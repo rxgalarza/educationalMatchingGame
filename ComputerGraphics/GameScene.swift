@@ -20,6 +20,8 @@ class GameScene: SKScene {
     var currentLevel: Int                = 1
     var scoreLabel: SKLabelNode          = SKLabelNode()
     var playAgainButton:SKSpriteNode     = SKSpriteNode()
+    var mainMenuButton:SKSpriteNode            = SKSpriteNode()
+    var mainMenuLabel:SKLabelNode        = SKLabelNode()
     var playAgainLabel:SKLabelNode       = SKLabelNode()
     var popIn:SKAction                   = SKAction()
     var popDown:SKAction                 = SKAction()
@@ -124,7 +126,7 @@ class GameScene: SKScene {
         animalToSelectLabel.position = CGPoint(x: 0, y: 450)
         addChild(animalToSelectLabel)
         
-        scoreLabel.text = "Score:"
+        scoreLabel.text = "Score: 0"
         scoreLabel.fontColor = .black
         scoreLabel.fontName = "AvenirNext-Heavy"
         scoreLabel.fontSize = 40
@@ -232,6 +234,22 @@ class GameScene: SKScene {
         playAgainLabel.position     = CGPoint(x: playAgainButton.position.x, y: playAgainButton.position.y)
         self.addChild(playAgainLabel)
         
+        mainMenuButton              = SKSpriteNode(imageNamed: "green_button13")
+        mainMenuButton.position     = CGPoint(x: 0, y: -200)
+        mainMenuButton.name         = "mainMenuButton"
+        mainMenuButton.xScale       = 3.0
+        mainMenuButton.yScale       = 2.0
+        mainMenuButton.zPosition    = 0
+        self.addChild(mainMenuButton)
+        
+        mainMenuLabel.text          = "Main Menu"
+        mainMenuLabel.position      = CGPoint(x: mainMenuButton.position.x, y: mainMenuButton.position.y)
+        mainMenuLabel.color         = .black
+        mainMenuLabel.zPosition     = 1
+        mainMenuLabel.fontName      = "AvenirNext-Heavy"
+        self.addChild(mainMenuLabel)
+        
+        
     }
     
     
@@ -243,13 +261,27 @@ class GameScene: SKScene {
         if let name = touchedNode.name
         {
             if name == "playAgainButton"{
-                print("Play Again")
-            }else{
+                newGame()
+            }else if name == "mainMenuButton"{
+                mainMenu()
+            }
+            else{
             checkUserSelection(name: name)
             }
         }
     }
     
+    func newGame(){
+        let gameScene = GameScene(size: CGSize(width: 750, height: 1624))
+        gameScene.scaleMode = .aspectFill
+        view?.presentScene(gameScene)
+    }
+    
+    func mainMenu(){
+        let mainMenuScene = MainMenuScreen(size: CGSize(width: 750, height: 1624))
+        mainMenuScene.scaleMode = .aspectFill
+        view?.presentScene(mainMenuScene)
+    }
     
     func checkUserSelection(name: String){
         print(name)
