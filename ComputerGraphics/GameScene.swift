@@ -19,7 +19,8 @@ class GameScene: SKScene {
     var score:Int                        = 0
     var currentLevel: Int                = 1
     var scoreLabel: SKLabelNode          = SKLabelNode()
-
+    var playAgainButton:SKSpriteNode     = SKSpriteNode()
+    var playAgainLabel:SKLabelNode       = SKLabelNode()
     var popIn:SKAction                   = SKAction()
     var popDown:SKAction                 = SKAction()
     var shakeAction:SKAction             = SKAction()
@@ -156,31 +157,35 @@ class GameScene: SKScene {
         self.removeChildren(in: animalsOnScreen)
     }
 
+    
+    // Will add four animal sprites on screen
+    // randomly chooses one to be the animal to be chosen by the user
+    
     func addAnimalsToScreen(){
         
         animalsOnScreen.removeAll()
-        let animal0 = randomItem()
+        let animal0 = randomItem().copy() as! SKSpriteNode
         animal0.position = CGPoint(x: 100, y: 0)
         animalsOnScreen.append(animal0)
         animal0.setScale(0.25)
         addChild(animal0)
         animal0.run(SKAction.sequence([popIn,popDown]))
         
-        let animal1 = randomItem()
+        let animal1 = randomItem().copy() as! SKSpriteNode
         animal1.position = CGPoint(x: -100, y: 0)
         animal1.setScale(0.25)
         animalsOnScreen.append(animal1)
         addChild(animal1)
         animal1.run(SKAction.sequence([popIn,popDown]))
         
-        let animal2 = randomItem()
+        let animal2 = randomItem().copy() as! SKSpriteNode
         animal2.position = CGPoint(x: -100, y: -200)
         animal2.setScale(0.25)
         animalsOnScreen.append(animal2)
         addChild(animal2)
         animal2.run(SKAction.sequence([popIn,popDown]))
         
-        let animal3 = randomItem()
+        let animal3 = randomItem().copy() as! SKSpriteNode
         animal3.position = CGPoint(x: 100, y: -200)
         animal3.setScale(0.25)
         animalsOnScreen.append(animal3)
@@ -211,16 +216,37 @@ class GameScene: SKScene {
         return animals[anIndex];
     }
     
+    func addPlayAgainButton(){
+        playAgainButton             = SKSpriteNode(imageNamed: "green_button13")
+        playAgainButton.position    = CGPoint(x: 0, y: 0)
+        playAgainButton.name        = "playAgainButton"
+        playAgainButton.xScale      = 3.0
+        playAgainButton.yScale      = 2.0
+        playAgainButton.zPosition   = 0
+        self.addChild(playAgainButton)
+        
+        playAgainLabel.text         = "Play Again"
+        playAgainLabel.fontName     = "AvenirNext-Heavy"
+        playAgainLabel.color        = .black
+        playAgainLabel.zPosition    = 1
+        playAgainLabel.position     = CGPoint(x: playAgainButton.position.x, y: playAgainButton.position.y)
+        self.addChild(playAgainLabel)
+        
+    }
     
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        let touch:UITouch = touches.first!
+        let touch:UITouch   = touches.first!
         let positionInScene = touch.location(in: self)
-        let touchedNode = self.atPoint(positionInScene)
+        let touchedNode     = self.atPoint(positionInScene)
         
         if let name = touchedNode.name
         {
+            if name == "playAgainButton"{
+                print("Play Again")
+            }else{
             checkUserSelection(name: name)
+            }
         }
     }
     
@@ -241,13 +267,15 @@ class GameScene: SKScene {
                                                 if self.currentLevel < 10 {
                                                         self.addAnimalsToScreen()
                                                         self.currentLevel += 1
+                                                }else{
+                                                    self.scoreLabel.text = ""
+                                                    self.animalToSelectLabel.text = "Final Score:\(self.score)"
+                                                    self.addPlayAgainButton()
                                                 }
-                                                }
+                                            }
             
             run(SKAction.sequence([wait, displayCorrectLabel, wait, removeAnimalsAction,addAnimalsAction]))
            
-            
-            
         }else {
             print(false)
             let displayTryAgainLabel = SKAction.run {
