@@ -165,6 +165,7 @@ class GameScene: SKScene {
     // randomly chooses one to be the animal to be chosen by the user
     
     func addAnimalsToScreen(){
+        self.backgroundColor = .random()
         
         animalsOnScreen.removeAll()
         let animal0 = randomItem().copy() as! SKSpriteNode
@@ -223,8 +224,8 @@ class GameScene: SKScene {
         playAgainButton             = SKSpriteNode(imageNamed: "green_button13")
         playAgainButton.position    = CGPoint(x: 0, y: 0)
         playAgainButton.name        = "playAgainButton"
-        playAgainButton.xScale      = 3.0
-        playAgainButton.yScale      = 2.0
+        playAgainButton.xScale      = 1.0
+        playAgainButton.yScale      = 1.0
         playAgainButton.zPosition   = 0
         self.addChild(playAgainButton)
         
@@ -238,8 +239,8 @@ class GameScene: SKScene {
         mainMenuButton              = SKSpriteNode(imageNamed: "green_button13")
         mainMenuButton.position     = CGPoint(x: 0, y: -200)
         mainMenuButton.name         = "mainMenuButton"
-        mainMenuButton.xScale       = 3.0
-        mainMenuButton.yScale       = 2.0
+        mainMenuButton.xScale       = 1.0
+        mainMenuButton.yScale       = 1.0
         mainMenuButton.zPosition    = 0
         self.addChild(mainMenuButton)
         
@@ -325,4 +326,19 @@ class GameScene: SKScene {
         
     }
     
+}
+
+extension CGFloat {
+    static func random() -> CGFloat {
+        return CGFloat(arc4random()) / CGFloat(UInt32.max)
+    }
+}
+
+extension UIColor {
+    static func random() -> UIColor {
+        return UIColor(red:   .random(),
+                       green: .random(),
+                       blue:  .random(),
+                       alpha: 1.0)
+    }
 }
