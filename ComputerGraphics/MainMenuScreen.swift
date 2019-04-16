@@ -13,11 +13,14 @@ import SpriteKit
 class MainMenuScreen: SKScene {
      let playButton:SKSpriteNode = SKSpriteNode(imageNamed: "buttonGreen")
      let learnButton:SKSpriteNode = SKSpriteNode(imageNamed: "buttonGreen")
+     var testLabel:UILabel                = UILabel()
     
     override func didMove(to view: SKView) {
         self.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         self.backgroundColor = .blue
 
+        testLabel.text = "TEST"
+        
        
         playButton.position = CGPoint(x: 0, y:0)
         playButton.name = "playButton"

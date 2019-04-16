@@ -8,6 +8,7 @@
 
 import SpriteKit
 import GameplayKit
+import UIKit
 
 class GameScene: SKScene {
     
@@ -26,7 +27,7 @@ class GameScene: SKScene {
     var popIn:SKAction                   = SKAction()
     var popDown:SKAction                 = SKAction()
     var shakeAction:SKAction             = SKAction()
-    
+   
     fileprivate func setupAnimals() {
         // code to create a animal sprite
         let hippo: SKSpriteNode = SKSpriteNode(imageNamed: "hippo")
@@ -229,7 +230,7 @@ class GameScene: SKScene {
         
         playAgainLabel.text         = "Play Again"
         playAgainLabel.fontName     = "AvenirNext-Heavy"
-        playAgainLabel.color        = .black
+        playAgainLabel.fontColor        = .black
         playAgainLabel.zPosition    = 1
         playAgainLabel.position     = CGPoint(x: playAgainButton.position.x, y: playAgainButton.position.y)
         self.addChild(playAgainLabel)
@@ -244,7 +245,7 @@ class GameScene: SKScene {
         
         mainMenuLabel.text          = "Main Menu"
         mainMenuLabel.position      = CGPoint(x: mainMenuButton.position.x, y: mainMenuButton.position.y)
-        mainMenuLabel.color         = .black
+        mainMenuLabel.fontColor         = .black
         mainMenuLabel.zPosition     = 1
         mainMenuLabel.fontName      = "AvenirNext-Heavy"
         self.addChild(mainMenuLabel)
