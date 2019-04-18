@@ -15,13 +15,7 @@ class MainMenuScreen: SKScene {
      let learnButton:SKSpriteNode = SKSpriteNode(imageNamed: "buttonGreen")
      var testLabel:UILabel                = UILabel()
     
-    override func didMove(to view: SKView) {
-        self.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        self.backgroundColor = .blue
-
-        testLabel.text = "TEST"
-        
-       
+    fileprivate func setupUI() {
         playButton.position = CGPoint(x: 0, y:0)
         playButton.name = "playButton"
         playButton.yScale = 1.5
@@ -37,7 +31,7 @@ class MainMenuScreen: SKScene {
         playLabel.position = CGPoint(x: playButton.position.x, y: playButton.position.y - 20)
         addChild(playLabel)
         
-
+        
         
         learnButton.position = CGPoint(x: 0, y:-100)
         learnButton.name = "learnButton"
@@ -45,7 +39,7 @@ class MainMenuScreen: SKScene {
         learnButton.xScale = 2.0
         learnButton.zPosition = -10
         addChild(learnButton)
-
+        
         
         let learnLabel:SKLabelNode = SKLabelNode()
         learnLabel.text = "Learn"
@@ -54,6 +48,16 @@ class MainMenuScreen: SKScene {
         learnLabel.fontSize = 30
         learnLabel.position = CGPoint(x: learnButton.position.x, y: learnButton.position.y - 20)
         addChild(learnLabel)
+    }
+    
+    override func didMove(to view: SKView) {
+        self.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        self.backgroundColor = .blue
+
+        testLabel.text = "TEST"
+        
+       
+        setupUI()
         
         
     }
@@ -72,7 +76,9 @@ class MainMenuScreen: SKScene {
                 gameScene.scaleMode = .aspectFill
                 view?.presentScene(gameScene)
             }else if name == "learnButton"{
-                print("learn Button Touched")
+                let learnScene  = LearnScene(size: CGSize(width: 750, height: 1624))
+                learnScene.scaleMode = .aspectFill
+                view?.presentScene(learnScene)
             }
         }
     }

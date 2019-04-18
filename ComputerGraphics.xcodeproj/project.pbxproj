@@ -17,6 +17,7 @@
 		AAADEEF1225693BE007C80DE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AAADEEEF225693BE007C80DE /* LaunchScreen.storyboard */; };
 		AAADEEFC225693BE007C80DE /* ComputerGraphicsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAADEEFB225693BE007C80DE /* ComputerGraphicsTests.swift */; };
 		AAADEF07225693BE007C80DE /* ComputerGraphicsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAADEF06225693BE007C80DE /* ComputerGraphicsUITests.swift */; };
+		AAFF49C4226921CE001FA445 /* LearnScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFF49C3226921CE001FA445 /* LearnScene.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,7 @@
 		AAADEF02225693BE007C80DE /* ComputerGraphicsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ComputerGraphicsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAADEF06225693BE007C80DE /* ComputerGraphicsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComputerGraphicsUITests.swift; sourceTree = "<group>"; };
 		AAADEF08225693BE007C80DE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AAFF49C3226921CE001FA445 /* LearnScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearnScene.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +109,7 @@
 				AAADEEE4225693BA007C80DE /* Actions.sks */,
 				AAADEEE6225693BA007C80DE /* GameScene.swift */,
 				AA0F9D53225D2BE200DA3DFC /* MainMenuScreen.swift */,
+				AAFF49C3226921CE001FA445 /* LearnScene.swift */,
 				AAADEEE8225693BA007C80DE /* GameViewController.swift */,
 				AAADEEEA225693BA007C80DE /* Main.storyboard */,
 				AAADEEED225693BE007C80DE /* Assets.xcassets */,
@@ -271,6 +274,7 @@
 			files = (
 				AAADEEE7225693BA007C80DE /* GameScene.swift in Sources */,
 				AA0F9D54225D2BE200DA3DFC /* MainMenuScreen.swift in Sources */,
+				AAFF49C4226921CE001FA445 /* LearnScene.swift in Sources */,
 				AAADEEE9225693BA007C80DE /* GameViewController.swift in Sources */,
 				AAADEEE1225693BA007C80DE /* AppDelegate.swift in Sources */,
 			);
