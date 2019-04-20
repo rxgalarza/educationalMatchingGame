@@ -21,13 +21,13 @@ class GameScene: SKScene {
     var currentLevel: Int                = 1
     var scoreLabel: SKLabelNode          = SKLabelNode()
     var playAgainButton:SKSpriteNode     = SKSpriteNode()
-    var mainMenuButton:SKSpriteNode            = SKSpriteNode()
+    var mainMenuButton:SKSpriteNode      = SKSpriteNode()
+    var quitGameButton:SKSpriteNode      = SKSpriteNode()
     var mainMenuLabel:SKLabelNode        = SKLabelNode()
     var playAgainLabel:SKLabelNode       = SKLabelNode()
     var popIn:SKAction                   = SKAction()
     var popDown:SKAction                 = SKAction()
     var shakeAction:SKAction             = SKAction()
-   
     fileprivate func setupAnimals() {
         // code to create a animal sprite
         let hippo: SKSpriteNode = SKSpriteNode(imageNamed: "hippo")
@@ -220,7 +220,14 @@ class GameScene: SKScene {
         return animals[anIndex];
     }
     
+    // setup the UI components
     func addPlayAgainButton(){
+        
+        quitGameButton              = SKSpriteNode(imageNamed: "home")
+        quitGameButton.position     = CGPoint(x: -300, y: 300)
+        quitGameButton.name         = "quitGameButton"
+        self.addChild(quitGameButton)
+        
         playAgainButton             = SKSpriteNode(imageNamed: "green_button13")
         playAgainButton.position    = CGPoint(x: 0, y: 0)
         playAgainButton.name        = "playAgainButton"
@@ -250,8 +257,7 @@ class GameScene: SKScene {
         mainMenuLabel.zPosition     = 1
         mainMenuLabel.fontName      = "AvenirNext-Heavy"
         self.addChild(mainMenuLabel)
-        
-        
+    
     }
     
     
@@ -264,7 +270,7 @@ class GameScene: SKScene {
         {
             if name == "playAgainButton"{
                 newGame()
-            }else if name == "mainMenuButton"{
+            }else if name == "mainMenuButton" || name == "quitGameButton"{
                 mainMenu()
             }
             else{
