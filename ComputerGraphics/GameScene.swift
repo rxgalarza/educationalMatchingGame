@@ -19,6 +19,7 @@ class GameScene: SKScene {
     var animalToSelectName:String        = ""
     var score:Int                        = 0
     var currentLevel: Int                = 1
+    var triesLeft:Int                    = 2
     var scoreLabel: SKLabelNode          = SKLabelNode()
     var playAgainButton:SKSpriteNode     = SKSpriteNode()
     var mainMenuButton:SKSpriteNode      = SKSpriteNode()
@@ -28,6 +29,7 @@ class GameScene: SKScene {
     var popIn:SKAction                   = SKAction()
     var popDown:SKAction                 = SKAction()
     var shakeAction:SKAction             = SKAction()
+    
     fileprivate func setupAnimals() {
         // code to create a animal sprite
         let hippo: SKSpriteNode = SKSpriteNode(imageNamed: "hippo")
@@ -143,7 +145,15 @@ class GameScene: SKScene {
         setupActions()
         setupAnimals()
         setupLabels()
+        setupUI()
         addAnimalsToScreen()
+    }
+    
+    func setupUI(){
+        quitGameButton              = SKSpriteNode(imageNamed: "home")
+        quitGameButton.position     = CGPoint(x: 0 , y: -500)
+        quitGameButton.name         = "quitGameButton"
+        self.addChild(quitGameButton)
     }
     
     func setupActions(){
@@ -223,10 +233,7 @@ class GameScene: SKScene {
     // setup the UI components
     func addPlayAgainButton(){
         
-        quitGameButton              = SKSpriteNode(imageNamed: "home")
-        quitGameButton.position     = CGPoint(x: -300, y: 300)
-        quitGameButton.name         = "quitGameButton"
-        self.addChild(quitGameButton)
+        
         
         playAgainButton             = SKSpriteNode(imageNamed: "green_button13")
         playAgainButton.position    = CGPoint(x: 0, y: 0)
@@ -288,21 +295,24 @@ class GameScene: SKScene {
     func mainMenu(){
         let mainMenuScene = MainMenuScreen(size: CGSize(width: 750, height: 1624))
         mainMenuScene.scaleMode = .aspectFill
-        view?.presentScene(mainMenuScene)
+        view?.presentScene(mainMenuScene, transition: SKTransition.doorsCloseHorizontal(withDuration: 0.5))
     }
     
     func checkUserSelection(name: String){
         print(name)
+        let removeAnimalsAction = SKAction.run{ self.removeAnimalsFromScreen()}
+        let wait = SKAction.wait(forDuration: 0.5)
+        
         if name == animalToSelectName{
             print(true)
             score += 10
             scoreLabel.text = "Score: \(score)"
-            let wait = SKAction.wait(forDuration: 0.5)
+            
             let displayCorrectLabel = SKAction.run {
                 self.animalToSelectLabel.run(SKAction.sequence([self.popIn, self.popDown]))
                 self.animalToSelectLabel.text = "Correct!"
             }
-            let removeAnimalsAction = SKAction.run{ self.removeAnimalsFromScreen()}
+            
             let addAnimalsAction    = SKAction.run{
                                                 if self.currentLevel < 10 {
                                                         self.addAnimalsToScreen()
@@ -317,17 +327,35 @@ class GameScene: SKScene {
             run(SKAction.sequence([wait, displayCorrectLabel, wait, removeAnimalsAction,addAnimalsAction]))
            
         }else {
-            print(false)
-            let displayTryAgainLabel = SKAction.run {
-                 self.animalToSelectLabel.run(self.shakeAction)
-                 self.animalToSelectLabel.text = "Try Again"
+            if triesLeft <= 1 {
+                triesLeft = 2
+                let addAnimalsAction    = SKAction.run{
+                    if self.currentLevel < 10 {
+                        self.addAnimalsToScreen()
+                        self.currentLevel += 1
+                    }else{
+                        self.scoreLabel.text = ""
+                        self.animalToSelectLabel.text = "Final Score:\(self.score)"
+                        self.addPlayAgainButton()
+                    }
+                }
+                
+              run(SKAction.sequence([wait, removeAnimalsAction,addAnimalsAction]))
+            }else {
+                let displayTryAgainLabel = SKAction.run {
+                    self.animalToSelectLabel.run(self.shakeAction)
+                    self.animalToSelectLabel.text = "Try Again"
+                    self.triesLeft -= 1
+                }
+                
+                let wait = SKAction.wait(forDuration: 0.5)
+                let updateAnimalToSelectLabel = SKAction.run {
+                    self.animalToSelectLabel.text = "Find the \(self.animalToSelectName)"
+                }
+                run(SKAction.sequence([wait,displayTryAgainLabel,wait,updateAnimalToSelectLabel]))
             }
-           
-            let wait = SKAction.wait(forDuration: 0.5)
-            let updateAnimalToSelectLabel = SKAction.run {
-                self.animalToSelectLabel.text = "Find the \(self.animalToSelectName)"
-            }
-            run(SKAction.sequence([wait,displayTryAgainLabel,wait,updateAnimalToSelectLabel]))
+            
+            
         }
         
     }
