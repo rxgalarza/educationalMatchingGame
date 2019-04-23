@@ -27,7 +27,7 @@ class MainMenuScreen: SKScene {
         playLabel.text = "Play"
         playLabel.fontName = "AvenirNext-Heavy"
         playLabel.fontColor = .black
-        playLabel.fontSize = 30
+        playLabel.fontSize = 40
         playLabel.position = CGPoint(x: playButton.position.x, y: playButton.position.y - 20)
         addChild(playLabel)
         
@@ -45,14 +45,14 @@ class MainMenuScreen: SKScene {
         learnLabel.text = "Learn"
         learnLabel.fontName = "AvenirNext-Heavy"
         learnLabel.fontColor = .black
-        learnLabel.fontSize = 30
+        learnLabel.fontSize = 40
         learnLabel.position = CGPoint(x: learnButton.position.x, y: learnButton.position.y - 20)
         addChild(learnLabel)
     }
     
     override func didMove(to view: SKView) {
         self.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        self.backgroundColor = .black
+        self.backgroundColor = .orange
 
         testLabel.text = "TEST"
         

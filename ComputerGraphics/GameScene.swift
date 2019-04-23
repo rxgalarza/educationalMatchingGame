@@ -154,6 +154,13 @@ class GameScene: SKScene {
         quitGameButton.position     = CGPoint(x: 0 , y: -500)
         quitGameButton.name         = "quitGameButton"
         self.addChild(quitGameButton)
+        
+        mainMenuLabel.text          = "Main Menu"
+        mainMenuLabel.position      = CGPoint(x: quitGameButton.position.x, y: quitGameButton.position.y - 100)
+        mainMenuLabel.fontColor         = .black
+        mainMenuLabel.zPosition     = 1
+        mainMenuLabel.fontName      = "AvenirNext-Heavy"
+        self.addChild(mainMenuLabel)
     }
     
     func setupActions(){
@@ -235,11 +242,11 @@ class GameScene: SKScene {
         
         
         
-        playAgainButton             = SKSpriteNode(imageNamed: "green_button13")
+        playAgainButton             = SKSpriteNode(imageNamed: "return")
         playAgainButton.position    = CGPoint(x: 0, y: 0)
         playAgainButton.name        = "playAgainButton"
-        playAgainButton.xScale      = 1.0
-        playAgainButton.yScale      = 1.0
+        playAgainButton.xScale      = 2.0
+        playAgainButton.yScale      = 2.0
         playAgainButton.zPosition   = 0
         self.addChild(playAgainButton)
         
@@ -247,23 +254,23 @@ class GameScene: SKScene {
         playAgainLabel.fontName     = "AvenirNext-Heavy"
         playAgainLabel.fontColor        = .black
         playAgainLabel.zPosition    = 1
-        playAgainLabel.position     = CGPoint(x: playAgainButton.position.x, y: playAgainButton.position.y)
+        playAgainLabel.position     = CGPoint(x: playAgainButton.position.x, y: playAgainButton.position.y - 150)
         self.addChild(playAgainLabel)
         
-        mainMenuButton              = SKSpriteNode(imageNamed: "green_button13")
-        mainMenuButton.position     = CGPoint(x: 0, y: -200)
-        mainMenuButton.name         = "mainMenuButton"
-        mainMenuButton.xScale       = 1.0
-        mainMenuButton.yScale       = 1.0
-        mainMenuButton.zPosition    = 0
-        self.addChild(mainMenuButton)
+//        mainMenuButton              = SKSpriteNode(imageNamed: "home")
+//        mainMenuButton.position     = CGPoint(x: 0, y: -200)
+//        mainMenuButton.name         = "mainMenuButton"
+//        mainMenuButton.xScale       = 1.0
+//        mainMenuButton.yScale       = 1.0
+//        mainMenuButton.zPosition    = 0
+//        self.addChild(mainMenuButton)
         
-        mainMenuLabel.text          = "Main Menu"
-        mainMenuLabel.position      = CGPoint(x: mainMenuButton.position.x, y: mainMenuButton.position.y)
-        mainMenuLabel.fontColor         = .black
-        mainMenuLabel.zPosition     = 1
-        mainMenuLabel.fontName      = "AvenirNext-Heavy"
-        self.addChild(mainMenuLabel)
+//        mainMenuLabel.text          = "Main Menu"
+//        mainMenuLabel.position      = CGPoint(x: mainMenuButton.position.x, y: mainMenuButton.position.y - 100)
+//        mainMenuLabel.fontColor         = .black
+//        mainMenuLabel.zPosition     = 1
+//        mainMenuLabel.fontName      = "AvenirNext-Heavy"
+//        self.addChild(mainMenuLabel)
     
     }
     
@@ -289,7 +296,7 @@ class GameScene: SKScene {
     func newGame(){
         let gameScene = GameScene(size: CGSize(width: 750, height: 1624))
         gameScene.scaleMode = .aspectFill
-        view?.presentScene(gameScene)
+        view?.presentScene(gameScene, transition: SKTransition.reveal(with: SKTransitionDirection.down, duration: 0.25))
     }
     
     func mainMenu(){
